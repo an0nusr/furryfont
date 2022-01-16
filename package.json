@@ -1,0 +1,15 @@
+{
+  "name": "furryfont",
+  "version": "1.0.0",
+  "source": "index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "author": "anonusr",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "^2.2.0"
+  }
+}
