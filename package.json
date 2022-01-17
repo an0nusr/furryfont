@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "deploy": "echo 'furryfont.anonusr.org' > ./dist/CNAME && gh-pages -d dist"
   },
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "parcel": "^2.2.0"
   }
 }
