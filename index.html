@@ -115,8 +115,9 @@
                     currentBlock += convertQuillOp(text, attr)
 
                     if (text == '\n' || idx == ops.length-1) {
-                        // handle block level items before placing.
-                        if (attr?.align) currentBlock = `[${attr.align}]${currentBlock.trim()}[/${attr.align}]\n`
+                        // handle block level items before placing. Note that we dont' add justify alignment tags
+                        // since it's not understood by FA.
+                        if (attr?.align && attr.align != 'justify') currentBlock = `[${attr.align}]${currentBlock.trim()}[/${attr.align}]\n`
                         if (attr?.header) currentBlock = `[h${attr.header}]${currentBlock.trim()}[/h${attr.header}]\n`
 
                         // place the block
