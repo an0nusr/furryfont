@@ -4,7 +4,7 @@
   "source": "index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "anonusr",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
