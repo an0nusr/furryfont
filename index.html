@@ -83,7 +83,7 @@
                         toolbar: [
                         [{ header: [1, 2, 3, 4, 5, false] }],
                         ['bold', 'italic', 'underline', 'strike'],
-                        ['link'],
+                        ['link', 'blockquote'],
                         [{ 'script': 'sub'}, { 'script': 'super' }],
                         [{'align': ['', 'center', 'right']}],
                         [{ 'color': [] }],
@@ -109,16 +109,23 @@
                     let attr = element?.attributes
                     let text = element.insert
 
-                    //text.replaceAll('\n', '[br]')
-
-                    // if this is a newline only with attributes, it's likely a block end
                     currentBlock += convertQuillOp(text, attr)
 
+                    // if this is a newline only with attributes, it's likely a block end
                     if (text == '\n' || idx == ops.length-1) {
+                        // per https://github.com/quilljs/quill/issues/3035
+                        // block formatting applies from the block operation back to the last \n, so only format the current one
+                        let [prev, last] = getLastLine(currentBlock)
+
+                        // place anything up to the last block since we don't want to format it.
+                        convertedText.innerText += prev.length > 0 ? prev + "\n" : "" // auto add a line break, unless there's no content in prev
+                        currentBlock = last
+
                         // handle block level items before placing. Note that we dont' add justify alignment tags
                         // since it's not understood by FA.
                         if (attr?.align && attr.align != 'justify') currentBlock = `[${attr.align}]${currentBlock.trim()}[/${attr.align}]\n`
                         if (attr?.header) currentBlock = `[h${attr.header}]${currentBlock.trim()}[/h${attr.header}]\n`
+                        if (attr?.blockquote) currentBlock = `[quote]${currentBlock.trim()}[/quote]\n`
 
                         // place the block
                         convertedText.innerText += currentBlock
@@ -130,6 +137,11 @@
                 // most people will likely want to normalize all linebreaks into paragraph breaks
                 const newlines = /(<br>)+/g
                 convertedText.innerHTML = convertedText.innerHTML.replaceAll(newlines, '\n<br /><br />')
+            }
+
+            function getLastLine(text) {
+                let idx = text.trimEnd().lastIndexOf("\n")
+                return [text.substring(0, idx), text.substring(idx).trim()]
             }
 
             function convertQuillOp(text, attr) {
@@ -158,7 +170,7 @@
                         text = `[color=${attr.color}]${text}[/color]`
                     }
                     else {
-                        console.log("Didn't identify attribute " + JSON.stringify(attr))
+                        console.log("Didn't identify inline attribute " + JSON.stringify(attr))
                     }
                 }
 
