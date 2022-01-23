@@ -193,7 +193,7 @@
             document.getElementById("copyButton").onclick = (e) => {
                 e.preventDefault()
                 console.log("adding text to clipboard")
-                let textToCopy = document.getElementById("convertedText").textContent
+                let textToCopy = document.getElementById("convertedText").innerText
                 navigator.clipboard.writeText(textToCopy)
             }
 
