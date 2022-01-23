@@ -117,7 +117,11 @@
                     if (text == '\n' || idx == ops.length-1) {
                         // per https://github.com/quilljs/quill/issues/3035
                         // block formatting applies from the block operation back to the last \n, so only format the current one
-                        let [prev, last] = getLastLine(currentBlock)
+
+                        // cannot use destructuring assignemtn due to parcel error.
+                        let res = getLastLine(currentBlock)
+                        let prev = res[0]
+                        let last = res[1]
 
                         // place anything up to the last block since we don't want to format it.
                         convertedText.innerText += prev.length > 0 ? prev + "\n" : "" // auto add a line break, unless there's no content in prev
