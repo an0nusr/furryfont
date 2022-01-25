@@ -1,9 +1,8 @@
-(()=>{function g(n){let e=n.ops,l=document.getElementById("convertedText");l.innerHTML="";let o="";e.forEach((r,d)=>{let i=r==null?void 0:r.attributes,c=r.insert;if(o+=b(c,i),c==`
-`||d==e.length-1){let u=p(o),t=u[0],f=u[1];l.innerText+=t.length>0?t+`
-`:"",o=f,(i==null?void 0:i.align)&&i.align!="justify"&&(o=`[${i.align}]${o.trim()}[/${i.align}]
-`),(i==null?void 0:i.header)&&(o=`[h${i.header}]${o.trim()}[/h${i.header}]
-`),(i==null?void 0:i.blockquote)&&(o=`[quote]${o.trim()}[/quote]
-`),l.innerText+=o,o=""}});let s=/(<br>)+/g;l.innerHTML=l.innerHTML.replaceAll(s,`
-<br /><br />`)}function p(n){let e=n.trimEnd().lastIndexOf(`
-`);return[n.substring(0,e),n.substring(e).trim()]}function b(n,e){return n==""?"":(e&&(e.italic&&(n="[i]"+n+"[/i]"),e.bold&&(n="[b]"+n+"[/b]"),e.underline&&(n="[u]"+n+"[/u]"),e.link&&(n=`[url=${e.link}]${n}[/url]`),e.script&&(e.script=="super"&&(n="[sup]"+n+"[/sup]"),n="[sub]"+n+"[/sub]"),e.color?n=`[color=${e.color}]${n}[/color]`:console.log("Didn't identify inline attribute "+JSON.stringify(e))),n)}document.getElementById("convertButton").onclick=n=>{n.preventDefault(),console.log("converting text..."),g(quill.getContents())};document.getElementById("copyButton").onclick=n=>{n.preventDefault(),console.log("adding text to clipboard");let e=document.getElementById("convertedText").textContent;navigator.clipboard.writeText(e)};})();
-//# sourceMappingURL=converter.js.map
+"use strict";function convertText(a){var b=a.ops,c=document.getElementById("convertedText");c.innerHTML="";//clear placeholder.
+// blocks in quill are handled by a single newline insert with block properties.
+// so we need to store a block before writing it since formatting might be at the end
+var d="";b.forEach(function(a,e){var f=null===a||void 0===a?void 0:a.attributes,g=a.insert;// if this is a newline only with attributes, it's likely a block end
+if(d+=convertQuillOp(g,f),"\n"==g||e==b.length-1){// per https://github.com/quilljs/quill/issues/3035
+// block formatting applies from the block operation back to the last \n, so only format the current one
+// cannot use destructuring assignemtn due to parcel error.
+var h=getLastLine(d),i=h[0],j=h[1];c.innerText+=0<i.length?i+"\n":"",d=j,null!==f&&void 0!==f&&f.align&&"justify"!=f.align&&(d="[".concat(f.align,"]").concat(d.trim(),"[/").concat(f.align,"]\n")),null!==f&&void 0!==f&&f.header&&(d="[h".concat(f.header,"]").concat(d.trim(),"[/h").concat(f.header,"]\n")),null!==f&&void 0!==f&&f.blockquote&&(d="[quote]".concat(d.trim(),"[/quote]\n")),c.innerText+=d,d=""}});c.innerHTML=c.innerHTML.replaceAll(/(<br>)+/g,"\n<br /><br />")}function getLastLine(a){var b=a.trimEnd().lastIndexOf("\n");return[a.substring(0,b),a.substring(b).trim()]}function convertQuillOp(a,b){return""==a?"":(b&&(b.italic&&(a="[i]"+a+"[/i]"),b.bold&&(a="[b]"+a+"[/b]"),b.underline&&(a="[u]"+a+"[/u]"),b.link&&(a="[url=".concat(b.link,"]").concat(a,"[/url]")),b.script&&("super"==b.script&&(a="[sup]"+a+"[/sup]"),a="[sub]"+a+"[/sub]"),b.color?a="[color=".concat(b.color,"]").concat(a,"[/color]"):console.log("Didn't identify inline attribute "+JSON.stringify(b))),a)}document.getElementById("convertButton").onclick=function(a){a.preventDefault(),console.log("converting text..."),convertText(quill.getContents())},document.getElementById("copyButton").onclick=function(a){a.preventDefault(),console.log("adding text to clipboard");var b=document.getElementById("convertedText").textContent;navigator.clipboard.writeText(b)};
