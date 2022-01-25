@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Furry Font</title>
+        <title>Furry Font - A FurAffinity Markup Generator</title>
         <meta name="description" content="Easily transform formatted text to FurAffinity markup.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
@@ -26,7 +26,7 @@
         <hr />
 
         <p class="lh-copy">Have you ever wanted to write something for <a href="https://www.furaffinity.net">FurAffinity</a>, but been frustrated by the
-            weird markup format? Having to use <code>[b]</code> and <code>[i]</code> can be annoying.
+            BBCode format? Having to use <code>[b]</code> and <code>[i]</code> can be annoying.
             So, here's something to make it easier. Just enter your formatted text below, hit the button,
             and get valid FurAffinity markup. Magic!
         </p>
@@ -49,7 +49,10 @@
 
         <div class="lh-copy">
             <h1 class="f3 lh-copy tc">About/FAQ</h1>
-            <p>This was built by me (anonusr on FA) to help a friend of mine who was an author of FurAffinity.</p>
+            <p>This was built by me (anonusr on FA) to help a friend of mine who was an author of FurAffinity. It takes
+                formatted text and converts it to the BBCode markup used by FurAffinity.
+            </p>
+            
             <p>The website does all of the conversion work in your browser - it never sends anything back to any server.
                 Don't worry - your story is safe!
             </p>
@@ -64,11 +67,13 @@
                     <li>Header (levels 1 through 5)</li>
                     <li>Align</li>
                     <li>Color</li>
+                    <li>Block Quotes</li>
                 </ul>
 
-                It will not process FA-specific codes like <code>(tm)</code> or any inline images/embeds.
+                It will not process FA-specific codes like <code>(tm)</code> or any inline images/embeds. Note
+                that FurAffinity cannot process nested block quotes.
 
-                <br /><br /> Note that the converter will try to normalize all linebreaks as new paragraphs 
+                <br /><br /> The tool will convert all linebreaks into new paragraphs 
                 (otherwise pasting from Word and Google Docs becomes messy). As part of this, 
                 any extra whitespace between paragraphs is ignored. </p>
 
