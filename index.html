@@ -130,7 +130,7 @@
 
                         // place anything up to the last block since we don't want to format it.
                         convertedText.innerText += prev.length > 0 ? prev + "\n" : "" // auto add a line break, unless there's no content in prev
-                        currentBlock = last
+                        currentBlock = last + "\n" //ensure there's a trailing newline, in case this is a normal paragraph
 
                         // handle block level items before placing. Note that we dont' add justify alignment tags
                         // since it's not understood by FA.
@@ -179,9 +179,6 @@
                     }
                     if (attr.color) {
                         text = `[color=${attr.color}]${text}[/color]`
-                    }
-                    else {
-                        console.log("Didn't identify inline attribute " + JSON.stringify(attr))
                     }
                 }
 
