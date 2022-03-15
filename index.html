@@ -71,7 +71,8 @@
                 </ul>
 
                 It will not process FA-specific codes like <code>(tm)</code> or any inline images/embeds. Note
-                that FurAffinity cannot process nested block quotes.
+                that FurAffinity cannot process nested block quotes. It will also ignore any commands to color
+                text black (this can be an artifact of copy-pasting from certain sources).
 
                 <br /><br /> The tool will convert all linebreaks into new paragraphs 
                 (otherwise pasting from Word and Google Docs becomes messy). As part of this, 
@@ -177,7 +178,7 @@
                         if (attr.script == 'super') text = "[sup]" + text + "[/sup]"
                         else text = "[sub]" + text + "[/sub]"
                     }
-                    if (attr.color) {
+                    if (attr.color && attr.color != "#000000" && attr.color != "black") {
                         text = `[color=${attr.color}]${text}[/color]`
                     }
                 }
