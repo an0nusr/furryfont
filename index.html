@@ -41,8 +41,10 @@
             <code>Your converted text will appear here!</code>
         </div>
 
-        <div class="flex flex-center pa3">
-            <a class="f5 sans-serif link dim br3 ph3 pv2 mb2 dib white bg-black center" id="copyButton" href="#0">Copy Converted Text To Clipboard</a>
+        <div class="flex flex-column pa3">
+            <a class="f5 sans-serif link dim br3 ph3 pv2 mb2 dib white bg-black center ma2" id="copyButton" href="#0">Copy Converted Text To Clipboard</a>
+            <a class="f5 sans-serif link dim br3 ph3 pv2 mb2 dib white bg-black center ma2" id="downloadButton" href="#0">Download Converted Text As Txt</a>
+            
         </div>
 
         <hr />
@@ -198,6 +200,21 @@
                 console.log("adding text to clipboard")
                 let textToCopy = document.getElementById("convertedText").innerText
                 navigator.clipboard.writeText(textToCopy)
+            }
+
+            document.getElementById("downloadButton").onclick = (e) => {
+                e.preventDefault()
+                console.log("downloading converted text...")
+                let textToDownload = document.getElementById("convertedText").innerText
+
+                let elem = document.createElement("a")
+                elem.setAttribute("href", 'data:text/plain;charset=utf-8,' + encodeURIComponent(textToDownload))
+                elem.setAttribute("download", "story.txt")
+
+                elem.style.display = 'none'
+                document.body.appendChild(elem)
+                elem.click()
+                document.body.removeChild(elem)
             }
 
 
