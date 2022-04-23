@@ -33,7 +33,12 @@
 
         <div id="editor" style="min-height: 14em;"></div>
 
-        <div class="flex flex-center pa3">
+        <div class="flex flex-column pa3">
+            <div class="tc mb2 flex items-center center">
+                <input type="checkbox" checked id="adjustSpacing"/>
+                <label for="adjustSpacing" class="ml2">Add paragraph breaks<br/>
+                </label>
+            </div>
             <a class="f5 sans-serif link dim br3 ph3 pv2 mb2 dib white bg-black center" id="convertButton" href="#0">Convert to FurAffinity Markup</a>
         </div>
 
@@ -149,8 +154,11 @@
                 });
 
                 // most people will likely want to normalize all linebreaks into paragraph breaks
-                const newlines = /(<br>)+/g
-                convertedText.innerHTML = convertedText.innerHTML.replaceAll(newlines, '\n<br /><br />')
+                if (document.getElementById("adjustSpacing").checked)
+                {
+                    const newlines = /(<br>)+/g
+                    convertedText.innerHTML = convertedText.innerHTML.replaceAll(newlines, '\n<br /><br />')
+                }
             }
 
             function getLastLine(text) {
