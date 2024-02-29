@@ -156,8 +156,9 @@
                 // most people will likely want to normalize all linebreaks into paragraph breaks
                 if (document.getElementById("adjustSpacing").checked)
                 {
-                    const newlines = /(<br>)+/g
-                    convertedText.innerHTML = convertedText.innerHTML.replaceAll(newlines, '\n<br /><br />')
+                    const newlines = /\n\s*/g //covert whitespace 
+                    convertedText.innerText = convertedText.innerText.replaceAll(newlines, '\n\n')
+
                 }
             }
 
