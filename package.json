@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-only",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build",
+    "build": "parcel build --no-optimize",
     "deploy": "echo 'furryfont.anonusr.org' > ./dist/CNAME && gh-pages -d dist"
   },
   "devDependencies": {
